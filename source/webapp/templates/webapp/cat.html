@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ cat.name }}</title>
+    <link rel="stylesheet" href="{% static 'webapp/style.css' %}">
+</head>
+<body>
+<div class="card">
+    <h1>Кот {{ cat.name }}</h1>
+    <img src="{{ avatar_url }}" class="avatar">
+    <p>Возраст: {{ cat.age }}</p>
+    <p>Сытость: {{ cat.fullness }}/100</p>
+    <p>Счастье: {{ cat.happiness }}/100</p>
+    <p>Состояние: {% if cat.sleeping %}Спит{% else %}Бодрствует{% endif %}</p>
+    {% if message %}<div class="message">{{ message }}</div>{% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <select name="action">
+            <option value="feed">Покормить</option>
+            <option value="play">Поиграть</option>
+            <option value="sleep">Поспать</option>
+        </select>
+        <button type="submit">Выполнить</button>
+    </form>
+</div>
+</body>
+</html>
